@@ -1,0 +1,38 @@
+# Default maven package put into an stage
+
+parameters:
+- name: stageName
+  type: string
+  default: 'package_maven_artifacts'
+- name: stageDependsOn
+  type: string
+  default: ''
+- name: poolName
+  type: string
+  default: ''
+- name: poolDemands
+  type: string
+  default: ''
+
+stages:
+  - stage: ${{ parameters.stageName }}
+    dependsOn: ${{ parameters.stageDependsOn }}
+    displayName: 'Maven: Package artifact'
+    jobs:
+      - job: maven_package
+        pool:
+          name: ${{ parameters.poolName }}
+          demands:
+          - ${{ parameters.poolDemands }}
+          steps:
+          - task: Maven@3
+            name: Maven package.
+            inputs:
+              mavenPomFile: 'pom.xml'
+              mavenOptions: '-Xmx3072m'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.11'
+              jdkArchitectureOption: 'x64'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              goals: 'package'

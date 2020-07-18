@@ -1,0 +1,15 @@
+# Initial demo basic pipeline
+
+parameters:
+- name: poolName
+  type: string
+  default: ''
+- name: poolDemands
+  type: string
+  default: ''
+
+stages:
+  - template: /stages/stage-maven-package.yml
+    parameters:
+      poolName: ${{ parameters.poolName }}
+      poolDemands: ${{ parameters.poolDemands }}
