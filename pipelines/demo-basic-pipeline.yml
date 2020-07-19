@@ -9,7 +9,9 @@ parameters:
   default: ''
 
 stages:
-  - template: /stages/stage-maven-package.yml
+  - template: /stages/stage-maven-build.yml
     parameters:
       poolName: ${{ parameters.poolName }}
       poolDemands: ${{ parameters.poolDemands }}
+      mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
+      artifactsServiceName: ${{ parameters.artifactServiceName }}
