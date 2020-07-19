@@ -7,6 +7,12 @@ parameters:
 - name: poolDemands
   type: string
   default: ''
+- name: mavenSettingsFile
+  type: string
+  default: ''
+- name: artifactsServiceName
+  type: string
+  default: ''
 
 stages:
   - template: /stages/stage-maven-build.yml
