@@ -21,7 +21,7 @@ stages:
       poolDemands: ${{ parameters.poolDemands }}
       mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
       artifactServiceName: ${{ parameters.artifactServiceName }}
-  - template: /templates/common-stages/stage-maven-publish.yml
+  - template: /stages/stage-maven-publish.yml
     parameters:
       poolName: ${{ parameters.poolName }}  
       poolDemands: ${{ parameters.poolDemands }}      
