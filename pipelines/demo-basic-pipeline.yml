@@ -27,7 +27,3 @@ stages:
       poolDemands: ${{ parameters.poolDemands }}      
       mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
       artifactServiceName: ${{ parameters.artifactServiceName }}
-  - template: /stages/stage-maven-sonar.yml
-    parameters:
-      poolName: ${{ parameters.poolName }}  
-      poolDemands: ${{ parameters.poolDemands }}     
