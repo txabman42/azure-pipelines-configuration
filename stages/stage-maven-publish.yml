@@ -1,0 +1,54 @@
+# Publish maven artifact
+
+parameters:
+
+- name: stageDependsOn
+  type: string
+  default: 'build_and_test_maven_artifacts'
+- name: poolName
+  type: string
+  default: ''
+- name: poolDemands
+  type: string
+  default: ''
+- name: mavenSettingsFile
+  type: string
+  default: ''
+- name: artifactServiceName
+  type: string
+  default: ''  
+- name: mavenOpts
+  type: string
+  default: ''
+
+stages:
+  - stage: 'publish_maven_artifacts'
+    dependsOn: ${{ parameters.stageDependsOn }}
+    displayName: 'Maven: publish artifact'
+    condition: and(succeeded(),or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'),eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+    jobs:
+    - job: maven_publish
+      pool:      
+        name: ${{ parameters.poolName }}       
+        demands: 
+        - ${{ parameters.poolDemands }}
+      steps:
+      - task: DownloadSecureFile@1
+        name: m2Settings
+        displayName: 'Download maven settings.xml'
+        inputs:
+          secureFile: '${{ parameters.mavenSettingsFile }}'
+      - bash: |
+          mkdir ${HOME}/.m2
+          cp $(m2Settings.secureFilePath) ${HOME}/.m2/settings.xml
+        displayName: 'Move settings.xml to .m2 folder' 
+      - task: MavenAuthenticate@0
+        displayName: 'Maven Authenticate'
+        inputs:
+          MavenServiceConnections: ${{ parameters.artifactServiceName }}
+      - task: Maven@3        
+        inputs:
+          mavenPomFile: 'pom.xml'
+          goals: package deploy
+          options: -DskipTests -DskipITs -U -B
+          mavenOptions: -Dmaven.repo.local=$(Build.SourcesDirectory)/m2-repository ${{ parameters.mavenOpts }}
