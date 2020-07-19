@@ -10,7 +10,7 @@ parameters:
 - name: mavenSettingsFile
   type: string
   default: ''
-- name: artifactsServiceName
+- name: artifactServiceName
   type: string
   default: ''
 
@@ -20,4 +20,4 @@ stages:
       poolName: ${{ parameters.poolName }}
       poolDemands: ${{ parameters.poolDemands }}
       mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
-      artifactsServiceName: ${{ parameters.artifactServiceName }}
+      artifactServiceName: ${{ parameters.artifactServiceName }}

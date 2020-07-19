@@ -13,7 +13,7 @@ parameters:
 - name: mavenSettingsFile
   type: string
   default: ''
-- name: artifactsServiceName
+- name: artifactServiceName
   type: string
   default: ''
 - name: mavenOpts
@@ -43,7 +43,7 @@ stages:
       - task: MavenAuthenticate@0
         displayName: 'Maven Authenticate'
         inputs:
-          MavenServiceConnections: ${{ parameters.artifactsServiceName }}
+          MavenServiceConnections: ${{ parameters.artifactServiceName }}
       - task: Maven@3
         displayName: Maven build.
         inputs:
