@@ -13,6 +13,9 @@ parameters:
 - name: artifactServiceName
   type: string
   default: ''
+- name: githubServiceName
+  type: string
+  default: ''
 
 stages:
   - template: /stages/stage-maven-build.yml
