@@ -1,0 +1,64 @@
+# Publish release page on github
+
+parameters:
+- name: stageDependsOn
+  type: string
+  default: 'build_maven_docker_images_release'
+- name: poolName  # defaults for any parameters that aren't specified
+  type: string
+  default: ''
+- name: poolDemands
+  type: string
+  default: ''
+- name: mavenSettingsFile
+  type: string
+  default: ''
+- name: artifactsServiceName
+  type: string
+  default: ''  
+- name: mavenOpts
+  type: string
+  default: '' 
+- name: githubServiceName
+  type: string
+  default: ''     
+ 
+stages:  
+  - stage: 'github_maven_release'
+    dependsOn: ${{ parameters.stageDependsOn }}
+    displayName: 'GitHub: Publish release'    
+    condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'master'))
+    jobs:
+    - job: maven_github_release
+      pool:
+        name: ${{ parameters.poolName }}       
+        demands: 
+        - ${{ parameters.poolDemands }}
+      steps:
+      - task: DownloadSecureFile@1
+        name: m2Settings
+        displayName: 'Download maven settings.xml'
+        inputs:
+          secureFile: '${{ parameters.mavenSettingsFile }}'
+      - bash: |
+          mkdir ${HOME}/.m2
+          cp $(m2Settings.secureFilePath) ${HOME}/.m2/settings.xml
+        displayName: 'Move settings.xml to .m2 folder' 
+      - task: MavenAuthenticate@0
+        displayName: 'Maven Authenticate'
+        inputs:
+          MavenServiceConnections: ${{ parameters.artifactsServiceName }}       
+      - bash: |
+          version=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`          
+          echo "##vso[task.setvariable variable=version]${version}"     
+        displayName: Read version name   
+      - task: GithubRelease@0
+        displayName: 'GitHub Release'
+        inputs:
+          gitHubConnection: ${{ parameters.githubServiceName }}                        
+          repositoryName: '$(Build.Repository.Name)'
+          action: create
+          tag: v$(version)
+          title: Release $(version)
+          isPreRelease: false
+          isDraft: false             

@@ -27,3 +27,10 @@ stages:
       poolDemands: ${{ parameters.poolDemands }}      
       mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
       artifactServiceName: ${{ parameters.artifactServiceName }}
+  - template: /stages/stage-maven-github-release.yml
+    parameters:      
+      poolName: ${{ parameters.poolName }}  
+      poolDemands: ${{ parameters.poolDemands }}  
+      mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
+      artifactsServiceName: ${{ parameters.artifactsServiceName }}
+      githubServiceName: ${{ parameters.githubServiceName }}
