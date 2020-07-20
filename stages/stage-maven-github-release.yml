@@ -3,7 +3,7 @@
 parameters:
 - name: stageDependsOn
   type: string
-  default: ''
+  default: 'publish_maven_artifacts'
 - name: poolName
   type: string
   default: ''

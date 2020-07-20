@@ -25,7 +25,7 @@ stages:
   - stage: 'publish_maven_artifacts'
     dependsOn: ${{ parameters.stageDependsOn }}
     displayName: 'Maven: publish artifact'
-    condition: and(succeeded(),or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'),eq(variables['Build.SourceBranch'], 'refs/heads/develop')))
+    condition: and(succeeded(),or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'),eq(variables['Build.SourceBranch'], 'refs/heads/master')))
     jobs:
     - job: maven_publish
       pool:      
