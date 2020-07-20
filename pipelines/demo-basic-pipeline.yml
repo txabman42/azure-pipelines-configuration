@@ -35,5 +35,5 @@ stages:
       poolName: ${{ parameters.poolName }}  
       poolDemands: ${{ parameters.poolDemands }}  
       mavenSettingsFile: ${{ parameters.mavenSettingsFile }}
-      artifactsServiceName: ${{ parameters.artifactsServiceName }}
+      artifactsServiceName: ${{ parameters.artifactServiceName }}
       githubServiceName: ${{ parameters.githubServiceName }}
