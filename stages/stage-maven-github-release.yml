@@ -3,8 +3,8 @@
 parameters:
 - name: stageDependsOn
   type: string
-  default: 'build_maven_docker_images_release'
-- name: poolName  # defaults for any parameters that aren't specified
+  default: ''
+- name: poolName
   type: string
   default: ''
 - name: poolDemands
