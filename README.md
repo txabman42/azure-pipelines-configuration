@@ -1,6 +1,6 @@
 # Azure Pipelines configuration [![Build Status](https://dev.azure.com/x42martinez/demo-pipelines/_apis/build/status/txabman42.azure-pipelines-cicd?repoName=txabman42%2Fazure-pipelines-cicd&branchName=master)](https://dev.azure.com/x42martinez/demo-pipelines/_build/latest?definitionId=2&repoName=txabman42%2Fazure-pipelines-cicd&branchName=master)
 
-This repository stores the configuration of the Azure pipelines used in the azure-pipelines-cicd repository. It is a demo repository in order to integrate a complete flow of Continuous Integration (CI) using Azure DevOps Pipelines.
+This repository stores the configuration of the Azure pipelines used in the [azure-pipelines-cicd repository](https://github.com/txabman42/azure-pipelines-cicd). It is a demo repository in order to integrate a complete flow of Continuous Integration (CI) using Azure DevOps Pipelines.
 
 An attempt has been made to follow [Code based configuration](https://rollout.io/blog/configuration-as-code-everything-need-know/), which gives the possibility of having advantage of version control and simplifies the configuration data.
 
